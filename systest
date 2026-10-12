@@ -1,0 +1,55 @@
+#!/bin/bash
+
+while true
+do
+echo " "
+echo " ################################## "
+echo " ======> > > system < < < ========= "
+echo""
+echo " 1) CPU and RAM usage "
+echo " 2) Top 5 processes "
+echo " 3) Disk space "
+echo " 4) Network IP "
+echo " 5) Exit "
+echo ""
+echo " =================================== "
+echo ""
+read -p " Enter a Number of Option : " system
+
+case $system in
+
+      1) RAM1=$( free -h | awk NR==2'{print$2}' )
+         RAM2=$( free -h | awk NR==2'{print$3}' )
+         RAM3=$( free -h | awk NR==2'{print$4}' )
+         echo "Mem : Total RAM space : $RAM1 "
+         echo "Mem : RAM space used : $RAM2 "
+         echo "Mem : Empty RAM space : $RAM3 "
+         echo " ============================== "
+         CPU1=$( free -h | awk NR==3'{print $2}' )
+         CPU2=$( free -h | awk NR==3'{print $3}' )
+         CPU3=$( free -h | awk NR==3'{print $4}' )
+         echo "Swap : Total RAM space : $CPU1 "
+         echo "Swap : RAM space used : $CPU2 "
+         echo "Swap : Empty RAM space : $CPU3 " ;;
+
+
+      2) top -bn1 | tail -n10 ;;
+
+      3) disk1=$( df -h | awk NR==2'{print $2}' )
+         disk2=$( df -h | awk NR==2'{print $3}' )
+         disk3=$( df -h | awk NR==2'{print $4}' )
+         echo " ============================== "
+         echo "Total Disk Space : $disk1 "
+         echo "The space used : $disk2 "
+         echo "Empty space : $disk3 " ;;
+
+      4) IP=$( ip a | awk NR==4'{print $2}' )
+        echo " ============================= "
+        echo "Network IP : $IP " ;;
+
+      5) exit ;;
+
+      *) echo "Please choose one of the options" ;;
+
+esac
+done
